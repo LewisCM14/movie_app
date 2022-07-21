@@ -8,23 +8,20 @@ function App() {
   const [movies, setMovies] = useState([]);
   
   /**
-   * fetchMoviesHandler function, uses the fetch method, 
+   * async fetchMoviesHandler function, uses the fetch method, 
    * which points at the star wars API URL.
    * fetch defaults to a GET request and returns a promise.
-   * 'then' once the promise has been delivered in the response object,
+   * 'await' the promise to be delivered in the response object,
    * the json data returned from the star wars api, 
-   * is then converted to a JavaScript object in the response method,
-   * 'then' once this data conversion promise is complete,
-   * maps the data into the transformedMovies object,
+   * is then converted to a JavaScript object in this response,
+   * 'await' this data conversion,
+   * then map the data into the transformedMovies object,
    * translating the fields as named in the star wars api to suit the application naming convention,
    * updates the 'movies' state to the transformedMovies data via the setMovies method.
    */
-   function fetchMoviesHandler() {
-    fetch('https://swapi.py4e.com/api/films')
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
+   async function fetchMoviesHandler() {
+    const response = await fetch('https://swapi.py4e.com/api/films')
+    const data = await response.json();
         const transformedMovies = data.results.map((movieData) => {
           return {
             id: movieData.episode_id,
@@ -34,7 +31,6 @@ function App() {
           };
         });
         setMovies(transformedMovies);
-      });
   }
 
   return (
