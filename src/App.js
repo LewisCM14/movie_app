@@ -16,18 +16,18 @@ function App() {
 
   /**
    * async fetchMoviesHandler function, uses the fetch method,
-   * which points at the star wars API URL.
+   * which points at the Firebase API URL for the project.
    * previous error state is cleared with setError upon a good HTTP request
    * TRY BLOCK
    * triggered on the click event for the button returned in app.js
    * fetch defaults to a GET request and returns a promise.
    * if the response is not ok throw error,
    * else 'await' the promise to be delivered in the response object,
-   * the json data returned from the star wars api,
+   * the json data returned from the api,
    * is then converted to a JavaScript object in this response,
    * 'await' this data conversion,
    * then map the data into the transformedMovies object,
-   * translating the fields as named in the star wars api to suit the application naming convention,
+   * translating the fields as named in the database to suit the application naming convention,
    * updates the 'movies' state to the transformedMovies data via the setMovies method.
    * CATCH BLOCK
    * if the response is not okay sets the error state to the string value
@@ -36,7 +36,7 @@ function App() {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch("https://swapi.py4e.com/api/films");
+      const response = await fetch("https://react-movie-app-ff8fc-default-rtdb.firebaseio.com/movies.json");
 
       if (!response.ok) {
         throw new Error("Something went wrong!");
